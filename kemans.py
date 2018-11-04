@@ -13,3 +13,4 @@ print(clf.labels_)
 print(x)
 plt.scatter(x[:,0],x[:,1],c=clf.labels_)
 plt.show()
+
