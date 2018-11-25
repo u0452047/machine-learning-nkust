@@ -39,7 +39,6 @@ def target(Data_No,k_class):
         x=int(Data_No[i])
         Final_Res=np.append(Final_Res,train_Data[x,4])   
     print(Final_Res)
-    #掃描陣列 看是哪類 累加
     y=Final_Res.size
     t0=t1=t2=0
     for j in range (0,y):
@@ -50,15 +49,13 @@ def target(Data_No,k_class):
         elif (int(Final_Res[j])==2):
             t2=t2+1
     tt=np.array([t0,t1,t2])   
-    print('{0} {1}'.format("各類個數:", tt)) 
-     #判斷哪類最多
     target=-1 
     for p in range (0,3):
      
         if( target < tt[p]):
             target=p         
     return target
-  
+
 def dist(a,b):
     x0=a[0]
     x1=a[1]
