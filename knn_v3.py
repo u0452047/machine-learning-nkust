@@ -14,6 +14,7 @@ def create_trainset():
     set1=np.array(Data[50:80])
     set2=np.array(Data[100:130])
     set=np.row_stack((set0,set1,set2))
+    print("測試資料",set)
     return set
 
 def knn_classify(input_tf,train_Data, k):
@@ -21,6 +22,7 @@ def knn_classify(input_tf,train_Data, k):
     dist_finish=qksort( dist(input_tf,train_Data))
     Data_No=Compare(dist_finish,dist(input_tf,train_Data),k_class)
     tag_NO=target(Data_No,k_class)
+    print("K=",k_class)
     return tag_NO    
 
 
@@ -30,7 +32,7 @@ def Compare(D1,D2,k_class):
     for i in range (0,k_class):
         for j in range (0,D2_len):
             if(D1[i]==D2[j]):
-                res = np.append(res,j)
+                res = np.append(res,j)           
     return(res)
 
 def target(Data_No,k_class):
@@ -62,7 +64,7 @@ def dist(a,b):
     x2=a[2]
     x3=a[3]
     res=np.array([])
-    for i in range(0,60):
+    for i in range(0,90):
         
         y0=b[i][0]
         y1=b[i][1]
@@ -75,8 +77,8 @@ def qksort(array):
         return array
     return qksort([x for x in array if x < array[0]])  + [array[0]] + qksort([x for x in array if x > array [0]])   
 if __name__ == '__main__':
-    input_tf =np.array([4.7 ,2.8, 5.3, 1.8]) 
+    input_tf =np.array([6.1 ,2., 1.7, 1.8]) 
     print("測試資料",input_tf)
     train_Data=create_trainset()
-    tag_NO=knn_classify(input_tf,train_Data, 3)
+    tag_NO=knn_classify(input_tf,train_Data, k=3)
     print('分類為第{0:d}類'.format(tag_NO))
