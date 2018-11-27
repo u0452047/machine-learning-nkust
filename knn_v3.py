@@ -65,7 +65,6 @@ def dist(a,b):
     x3=a[3]
     res=np.array([])
     for i in range(0,90):
-        
         y0=b[i][0]
         y1=b[i][1]
         y2=b[i][2]
