@@ -9,17 +9,18 @@ def create_trainset():
     iris_data  = np.array(iris.data) 
     iris_target= np.array(iris.target)
     Data = np.column_stack((iris_data,iris_target))
-    #所以的訓練樣本各取30個將樣本分成3種集合#
+    #從訓練樣本各取30個將樣本分成3種集合#
     set0=np.array(Data[0:30])
     set1=np.array(Data[50:80])
     set2=np.array(Data[100:130])
     set=np.row_stack((set0,set1,set2))
-    print("測試資料",set)
+    print("data set size\n",len(set))
     return set
 
 def knn_classify(input_tf,train_Data, k):
     k_class=k
     dist_finish=qksort( dist(input_tf,train_Data))
+    print("排序完的距離:\n",dist_finish)
     Data_No=Compare(dist_finish,dist(input_tf,train_Data),k_class)
     tag_NO=target(Data_No,k_class)
     print("K=",k_class)
@@ -32,7 +33,8 @@ def Compare(D1,D2,k_class):
     for i in range (0,k_class):
         for j in range (0,D2_len):
             if(D1[i]==D2[j]):
-                res = np.append(res,j)           
+                res = np.append(res,j)
+    print("找最靠近的3筆資料\n",res)                       
     return(res)
 
 def target(Data_No,k_class):
@@ -55,7 +57,8 @@ def target(Data_No,k_class):
     for p in range (0,3):
      
         if( target < tt[p]):
-            target=p         
+            target=p
+    print("分類結果\n",target)                 
     return target
 
 def dist(a,b):
@@ -70,14 +73,17 @@ def dist(a,b):
         y2=b[i][2]
         y3=b[i][3]    
         res = np.append(res, np.sqrt( np.square(x0-y0) + np.square(x1-y1) + np.square(x2-y2) + np.square(x3-y3)  )  )
+    print("與每筆資料的距離:\n",res)    
     return res
 def qksort(array):
     if len(array)<2:
         return array
-    return qksort([x for x in array if x < array[0]])  + [array[0]] + qksort([x for x in array if x > array [0]])   
+    return qksort([x for x in array if x < array[0]])  + [array[0]] + qksort([x for x in array if x > array [0]]) 
+
+
 if __name__ == '__main__':
     input_tf =np.array([6.1 ,2., 1.7, 1.8]) 
-    print("測試資料",input_tf)
-    train_Data=create_trainset()
+    print("輸入資料",input_tf)
+    train_Data=create_trainset() 
     tag_NO=knn_classify(input_tf,train_Data, k=3)
     print('分類為第{0:d}類'.format(tag_NO))
